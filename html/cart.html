@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/cart.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	</head>
+	<body>
+		<div id="buyPage">
+			<div class="info">
+			  <div class="headerName">购物清单</div>
+			  <p class="boxName">商品信息<span>操作</span><span>小计</span><span>数量</span><span>单价</span></p>
+			  <ul class="goodsList">
+			  	<li v-for="item,index in carPanelData">
+			  		<b>
+			  			<a href="javascript:"></a>
+			  		</b>
+	        		<img :src="item.ali_image" />
+		        	<h4>{{item.title}}</h4>
+		        	<div class="deleteItem">
+		        		<a href="javascript:"></a>
+		        	</div>
+		        	<div>￥199</div>
+			        <div class="num">
+			          <i @click="numMinus" :class="{unclick: num==1}">-</i>
+			          <input type="text" v-model="num"></input>
+			          <i @click="numPlus" :class="{unclick: num==itemIndex.limit_num}">+</i>
+			        </div>
+		        	<div>￥199</div>
+		        </li>
+			  </ul>
+			  <div class="list-bottom">
+			  	<b>
+			  		<a href="javascript:"></a>
+			  	</b>
+			  	<p><span>全选</span><b>删除选中的商品</b></p>
+			  	<div class="all-buyinfo">
+			  		<p>已选择<span>2</span>件商品</p>
+			  		<p>共计<span>2</span>件商品</p>
+			  	</div>
+			  	<div class="all-buyinfo">
+			  		<p>应付总额：￥<span>198.00</span></p>
+			  		<p>应付总额不含运费</p>
+			  	</div>
+			  	<a href="javascript:">现在结算</a>
+			  </div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/prompt.css">
+</head>
+<body>
+  <div id="backcolor">
+    <div class="promp">
+      <div class="header">
+        <span>提示</span>
+        <div class="close"></div>
+      </div>
+      <div class="content">商品已达到最大可购买数量，无法继续添加</div>
+      <div class="footer"><button>确定</button></div>
+    </div>
+  </div>
+</body>
+<script>
+window.onload = function () {
+  var h = document.documentElement.clientHeight
+  var back = document.getElementById('backcolor')
+  back.style.height = h + 'px'
+  window.onresize = function () {
+    h = document.documentElement.clientHeight
+    back.style.height = h + 'px'
+    console.log(h)
+  }
+}
+</script>
+</html>
