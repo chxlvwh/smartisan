@@ -54,7 +54,7 @@ export default {
   		if (isDelete) {
   			this.$store.commit('deleteThisAddrHandle', this.index)
   		}
-  		
+
   	}
   }
 }

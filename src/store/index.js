@@ -20,7 +20,6 @@ let store = new Vuex.Store({
     //   "count": 0
     // }
     carPanelData: [],
-    ddd: [ {a:1} ],
     showPrompt: false,
     changeCarColor: true,
     showCart: false,

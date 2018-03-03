@@ -203,4 +203,8 @@ export default {
 		vertical-align: top;
 		margin-left: 4px;
 	}
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 8460d1bb68dd2b1319801bcc3e9c2bee21e73234

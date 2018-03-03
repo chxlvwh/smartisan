@@ -69,7 +69,11 @@ header {
 }
 #header-container .nav-user .cart-img .cart {
   min-width: 14px;
+<<<<<<< HEAD
   height: 14px;
+=======
+  /*height: 20px;*/
+>>>>>>> 8460d1bb68dd2b1319801bcc3e9c2bee21e73234
   background: linear-gradient(to bottom, #bbbbbb, #afafaf);
   display: block;
   border-radius: 10px;
@@ -80,7 +84,11 @@ header {
   padding: 4px;
   font-size: 12px;
   text-align: center;
+<<<<<<< HEAD
   line-height: 14px;
+=======
+  /*line-height: 12px;*/
+>>>>>>> 8460d1bb68dd2b1319801bcc3e9c2bee21e73234
   box-shadow: #BCBCBC 0 1px 1px 0px;
 }
 #header-container .nav-user .cart-img .active1{
