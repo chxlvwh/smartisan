@@ -50,6 +50,14 @@ export default {
 			return this.skuIndex === index
 		},
 		addCarPanelHandle: function(data) {
+			let limitNum = 0
+			this.$http.get('api/skus?ids=' + this.ids + '&with_stock=true&with_spu=true').then(
+    			function(res) {
+    				limitNum = res.body.data.list[this.skuIndex].shop_info	.limit_num
+					data.limit_num = limitNum
+    			}
+    		)
+			console.log(data);
 			this.$store.commit('addCarPanelData', {
 				data,
 				num: 1

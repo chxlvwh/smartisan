@@ -116,8 +116,11 @@ export default {
 		},
 		addCarPanelHandle(itemIndex, num) {
 			console.log(num)
+			let t = itemIndex.spu.sku_info[this.colorIndex]
+			t.limit_num = this.itemIndex.shop_info.limit_num
+			console.log(t);
 			this.$store.commit('addCarPanelData', {
-				data: itemIndex.spu.sku_info[this.colorIndex],
+				data: t,
 				num
 			})
 		},
