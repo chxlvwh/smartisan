@@ -18,7 +18,7 @@ npm run build
 npm run build --report
 ```
 
-##锤子官网加购和购买页面的演示
+## 锤子官网加购和购买页面的演示
 
 ``` bash
 
