@@ -182,7 +182,6 @@ export default {
 #nowClick {
 	display: inline-block;
 }
-<<<<<<< HEAD
 
 #noItem {
 	width: 1218px;
@@ -202,7 +201,7 @@ export default {
 #noItem{
   width: 1218px;
   height: 525px;
-  background: #FFFFFF url(../../example/src/assets/img/cart-box-empty.png) no-repeat 50% 15%;
+  background: #FFFFFF url(../assets/img/cart-box-empty.png) no-repeat 50% 15%;
   position: relative;
 }
 #noItem p{
@@ -211,7 +210,6 @@ export default {
     padding-top: 380px;
 }
 #noItem a{
->>>>>>> 8460d1bb68dd2b1319801bcc3e9c2bee21e73234
 	width: 140px;
 	height: 46px;
 	border: 1px solid #e1e1e1;
@@ -220,7 +218,6 @@ export default {
 	margin: 10px auto;
 	text-align: center;
 	line-height: 46px;
-<<<<<<< HEAD
 	background: linear-gradient(to bottom, #fefefe, #f9f9f9);
 }
 
@@ -782,6 +779,4 @@ export default {
   background: url(../assets/img/noSelect.png);
   transform: translateY(-50%);
 }
-
->>>>>>> 8460d1bb68dd2b1319801bcc3e9c2bee21e73234
 </style>
