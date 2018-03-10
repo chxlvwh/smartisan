@@ -9,4 +9,4 @@ app.use(['/skus','/spus'], proxy({
   })
 )
 
-app.listen(8082)
+app.listen(8080)

@@ -138,7 +138,7 @@ export default {
             this.loading = true
             this.$http.get('api/skus?ids=' + this.ids + '&with_stock=true&with_spu=true').then(
     			function(res) {
-    				this.newItem = JSON.parse(JSON.stringify(res.body.data.list))
+    				this.newItem = res.body.data.list
                     this.loading = false
     				console.log(this.newItem)
     			}

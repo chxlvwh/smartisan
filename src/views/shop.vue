@@ -1,10 +1,10 @@
 <template>
 <div id="shop">
 	<ul id="nav-3-container">
-		<li><a class="active" href="#">综合排序</a></li>
-		<li><a href="#">销量排序</a></li>
-		<li><a href="#">价格低到高</a></li>
-		<li><a href="#">价格高到低</a></li>
+		<li><a :class="[n-1==0?'active':'']" href="#" @click="originalData">综合排序</a></li>
+		<li><a :class="[n-2==0?'active':'']" href="#" @click="saleSort">销量排序</a></li>
+		<li><a :class="[n-3==0?'active':'']" href="#" @click="priceSort_L_H">价格低到高</a></li>
+		<li><a :class="[n-4==0?'active':'']" href="#" @click="priceSort_H_L">价格高到低</a></li>
 	</ul>
 	<ul id="content-container">
 		<li v-for="item,index in goodsData" is="goodsList" :item="item">
@@ -15,24 +15,54 @@
 
 <script>
 /* eslint-disable */
-//  import goodsData from '@/lib/newGoodsData'
 import goodsList from '@/components/goods'
 export default {
 	data() {
 		return {
-			goodsData: []
+			goodsData: [],
+			originalGoodsData: [],
+			n: 1
 		}
 	},
 	components: {
 		goodsList
 	},
+	methods: {
+		originalData () {
+			this.goodsData = this.originalGoodsData.slice(0)
+			this.n = 1
+		},
+		saleSort () {
+		},
+		priceSort_L_H () {
+			this.goodsData.sort(
+				function (a,b){
+					return a.price-b.price
+				}
+			)
+			this.n = 3
+		},
+		priceSort_H_L () {
+			this.goodsData.sort(
+				function (a,b){
+					return b.price-a.price
+				}
+			)
+			this.n = 4
+		},
+		fetchData () {
+			this.$http.get('api/spus?page_size=20&category_id=60&page=1&sort=sort').then(
+				function(res) {
+					// 给两个数据分配不同的内存地址，否则的话两个变量会指向同一个地址
+					// 数组的深拷贝
+					this.goodsData = JSON.parse(JSON.stringify(res.body.data.list))
+					this.originalGoodsData = JSON.parse(JSON.stringify(res.body.data.list))
+				}
+			)
+		}
+	},
 	created() {
-		this.$http.get('api/spus?page_size=20&category_id=60&page=1&sort=sort').then(
-			function(res) {
-				this.goodsData = res.body.data.list
-				console.log(res.body.data.list)
-			}
-		)
+		this.fetchData()
 	}
 }
 </script>

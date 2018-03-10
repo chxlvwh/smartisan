@@ -13,7 +13,7 @@
 			<!--只有在选中这个颜色的时候才会渲染，是否显示是通过移入移出控制的，在未移入的时候，虽然渲染了，但是设置了display为none，所以也不会显示-->
 			<div class="cart-btn clear" v-if="btnShow(index)">
 				<button>
-            <router-link target="_blank" :to="{
+            <router-link @click="getIds" target="_blank" :to="{
                 name:'Item',
                 query: { itemId: item.sku_info[index].sku_id, ids: ids }
                 }">查看详情
@@ -55,6 +55,8 @@ export default {
     			function(res) {
     				limitNum = res.body.data.list[this.skuIndex].shop_info	.limit_num
 					data.limit_num = limitNum
+					console.log(res);
+					console.log(this.ids);
     			}
     		)
 			console.log(data);
@@ -72,14 +74,26 @@ export default {
 		},
 		btnShow(index) {
 			return this.skuIndex === index
+		},
+		getIds () {
+			let itemids = this.item.sku_info.map(function(i) {
+				return i.sku_id
+			}).join(',')
+			this.ids = itemids
+			console.log(itemids);
 		}
 	},
-	created() {
+	created () {
 		let itemids = this.item.sku_info.map(function(i) {
 			return i.sku_id
 		}).join(',')
 		this.ids = itemids
-		// console.log(itemids);
+	},
+	updated () {
+		let itemids = this.item.sku_info.map(function(i) {
+			return i.sku_id
+		}).join(',')
+		this.ids = itemids
 	},
 	components: {
 		Item
@@ -226,7 +240,7 @@ export default {
 	box-shadow: inset rgba(0, 0, 0, 0.1) 0px 0px 40px 0px;
 }
 
-.content-goods:hover .cart-btn {
+#content-container .content-goods:hover .cart-btn {
 	display: block;
 }
 
