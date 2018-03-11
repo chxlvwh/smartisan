@@ -15,7 +15,9 @@
 }
 #home-content-container .header-title h5 {
   margin-left: 30px;
-  font: 18px/60px "微软雅黑";
+  font-size: 18px;
+  line-height: 60px;
+  font-family: Microsoft Yahei, sans-serif;
 }
 #home-content-container .every-hot-good {
   overflow: hidden;
@@ -247,8 +249,17 @@
 #home-content-container .office-app .smart-apps li {
   float: left;
   width: 25%;
-  height: 315px;
+  height: 255px;
+  padding: 30px 0;
   text-align: center;
+  position: relative;
+}
+#home-content-container .office-app .smart-apps li .pre-link {
+  width: 245px;
+  height: 255px;
+  margin: 0 auto;
+  position: relative;
+  transition: opacity .2s;
 }
 #home-content-container .office-app .smart-apps li .pre-link .app-img {
   width: 96px;
@@ -274,7 +285,61 @@
   font-weight: 200;
 }
 #home-content-container .office-app .smart-apps li .pre-link .info p span {
+  display: block;
+  font-family: Helvetica Neue,PingFang SC,Helvetica,Arial,Hiragino Sans GB;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: #b2b2b2;
+  margin-top: 6px;
+  line-height: 1.2;
+}
+#home-content-container .office-app .smart-apps li .pre-link .platform {
+  position: absolute;
+  top: 208px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  text-align: center;
+}
+#home-content-container .office-app .smart-apps li .pre-link .platform .platform-icon {
+  display: inline-block;
+  margin: 0 5px;
+  position: relative;
+}
+#home-content-container .office-app .smart-apps li .pre-link .platform .platform-win::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(../img/win-logo.png);
+}
+#home-content-container .office-app .smart-apps li .pre-link .platform .platform-border-right::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  right: -10px;
+  top: 4px;
+  width: 1px;
+  height: 8px;
+  background: #eee;
+}
+#home-content-container .office-app .smart-apps li .pre-link .platform .platform-ios::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(../img/apple-logo.png);
+}
+#home-content-container .office-app .smart-apps li .after-link {
+  top: -306px;
+  width: 100%;
+  height: 315px;
+  background: white;
+  position: relative;
+  display: none;
+  transition: opacity 0.2s ease-out 0.1s;
+}
+#home-content-container .office-app .smart-apps li:hover .after-link {
+  display: block;
 }
