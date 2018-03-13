@@ -11,7 +11,7 @@ import PayView from '@/views/pay'
 Vue.use(Router)
 
 /* eslint-disable */
-export default new Router({
+let router = new Router({
   mode: 'history',
   routes: [
     {
@@ -41,3 +41,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

@@ -255,6 +255,7 @@
 		}
 	}
 	.office-app{
+		position: relative;
 		.smart-apps{
 			li{
 				float: left;
@@ -268,7 +269,7 @@
 					height: 255px;
 					margin: 0 auto;
 					position: relative;
-					transition: opacity .2s;
+					transition: opacity .2s ease-out .1s;
 					.app-img{
 						width: 96px;
 						height: 96px;
@@ -345,16 +346,137 @@
 					width: 100%;
 					height: 315px;
 					background: white;
+					opacity: 0;
 					position: relative;
-					display: none;
-					transition: opacity .2s ease-out .1s;
+					transition: opacity .1s cubic-bezier(.4,0,1,1);
+					.load-btns{
+						padding: 84px 0 15px;
+						.win-btn,.ios-btn{
+							display: block;
+							margin: 0 auto;
+							margin-bottom: 20px;
+							box-sizing: border-box;
+							border: 1px solid transparent;
+							border-radius: 6px;
+							padding: 10px 20px;
+							width: 210px;
+							height: 50px;
+							font-size: 14px;
+							line-height: 25px;
+							text-align: center;
+							white-space: nowrap;
+							color: #fff;
+							background-color: #6f97e5;
+							background-image: linear-gradient(#6f97e5, #527ed9);
+							box-shadow: inset 0 1px 2px #7ea1e8;
+							text-shadow: #4f70b3 0 -1px 0;
+							cursor: pointer;
+						}
+					}
+					&>a{
+						color: #5079d9;
+						font-size: 12px;
+						display: inline-block;
+						margin-top: 16px;
+					}
+					.qrcode{
+						margin: 64px auto 0;
+						box-sizing: border-box;
+						border: 1px solid #f7f7f7;
+						padding: 4px;
+						width: 120px;
+						height: 120px;
+						background: url(../img/qrcode.jpg)
+					}
+					.code-des{
+						margin-top: 35px;
+						line-height: 1.2;
+					}
 				}
 				&:hover{
 					.after-link{
-						display: block;
+						opacity: 1;
+					}
+					.pre-link{
+						opacity: 0;
 					}
 				}
 			}
+			li:nth-of-type(2){
+				.app-img{
+					background: url(../img/smart-app.png) no-repeat -189px 3px;
+				}
+			}
+			li:nth-of-type(3){
+				.app-img{
+					background: url(../img/smart-app.png) no-repeat -93px 3px;
+				}
+			}
+			li:nth-of-type(4){
+				.app-img{
+					background: url(../img/smart-app.png) no-repeat -372px 3px;
+				}
+			}
+		}
+	}
+	.bbs{
+		position: relative;
+		.bbs-articals{
+			li{
+				width: 25%;
+				float: left;
+				box-sizing: border-box;
+				padding: 30px;
+				height: 315px;
+				text-align: left;
+				.artical-img{
+					margin: 0 auto;
+					margin-bottom: 30px;
+					border-radius: 6px;
+					width: 246px;
+					height: 138px;
+				}
+				.content-info{
+					box-sizing: border-box;
+					width: 100%;
+					.artical-title{
+						overflow: hidden;
+						font-size: 15px;
+						line-height: 1;
+						color: #424242;
+					}
+					.artical-content{
+						margin-top: 12px;
+						font-size: 12px;
+						line-height: 18px;
+						font-weight: 200;
+						color: #b2b2b2;
+					}
+					.read-all{
+						display: block;
+						margin-top: 13px;
+						font-size: 12px;
+						font-weight: 500;
+						color: #5079d9;
+					}
+				}
+			}
+		}
+	}
+	.right-corner-link{
+		position: absolute;
+		right: 14px;
+		top: 14px;
+		font-size: 14px;
+		a{
+			display: inline-block;
+			border: 1px solid #e1e1e1;
+			border-radius: 4px;
+			padding: 0 15px 0 19px;
+			line-height: 34px;
+			color: #666;
+			background-color: #fff;
+			background-image: linear-gradient(180deg,#fff,#fafafa);
 		}
 	}
 }
