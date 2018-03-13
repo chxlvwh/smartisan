@@ -7,39 +7,45 @@ import Item from '@/views/item'
 import Buyinfo from '@/views/buyinfo'
 import ShoppingList from '@/views/shoppingList'
 import PayView from '@/views/pay'
+import Home from '@/views/home'
 
 Vue.use(Router)
 
 /* eslint-disable */
 let router = new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'Shop',
-      component: Shop
-    },
-    {
-      path: '/item',
-      name: 'Item',
-      component: Item
-    },
-    {
-      path: '/buyinfo',
-      name: 'Buyinfo',
-      component: Buyinfo
-    },
-    {
-    	path: '/shoppingList',
-    	name: 'ShoppingList',
-    	component: ShoppingList
-    },
-    {
-    	path: '/payView',
-    	name: 'PayView',
-    	component: PayView
-    }
-  ]
+    mode: 'history',
+    routes: [
+        {
+            path: '/home',
+            name: 'Home',
+            component: Home
+        },
+        {
+            path: '/',
+            name: 'Shop',
+            component: Shop
+        },
+        {
+            path: '/item',
+            name: 'Item',
+            component: Item
+        },
+        {
+            path: '/buyinfo',
+            name: 'Buyinfo',
+            component: Buyinfo
+        },
+        {
+        	path: '/shoppingList',
+        	name: 'ShoppingList',
+        	component: ShoppingList
+        },
+        {
+        	path: '/payView',
+        	name: 'PayView',
+        	component: PayView
+        }
+        ]
 })
 
 export default router

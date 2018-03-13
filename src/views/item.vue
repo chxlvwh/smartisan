@@ -136,7 +136,7 @@ export default {
 		},
         fetchData () {
             this.loading = true
-            this.$http.get('api/skus?ids=' + this.ids + '&with_stock=true&with_spu=true').then(
+            this.$http.get('/api/product/skus?ids=' + this.ids + '&with_stock=true&with_spu=true').then(
     			function(res) {
     				this.newItem = res.body.data.list
                     this.loading = false
