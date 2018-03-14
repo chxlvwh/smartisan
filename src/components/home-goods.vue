@@ -33,34 +33,6 @@ export default {
 		return {
 			promotions: '',
 		}
-	},
-	computed:{
-		buygive(){
-			return this.promotions.tag==="买赠"? true:false
-		}
-	},
-	created(){
-		let _that = this
-		let i = 0;
-		this.$http.get('api/promotions?with_num=true').then(
-			function(res) {
-				let t = JSON.parse(JSON.stringify(res.body.data.list));
-				// this.promotions = t;
-				let m = t.map(
-					function(item, index){
-						return item.rule.condition
-					}
-				)
-				let s = m.filter(function(item,index,arr){
-					if (arr[index].main_skus.indexOf(Number(_that.item.sku_id))!=-1 && Object.keys(arr[index]).indexOf('money')==-1) {
-						// 最终的目的是获得index的值
-						i = index;
-					}
-					return arr[index].main_skus.indexOf(Number(_that.item.sku_id))!=-1
-				})
-				this.promotions = t[i]
-			}
-		)
 	}
 }
 </script>

@@ -35,7 +35,7 @@
 			</div>
 			<ul class="every-hot-good">
 				<li is="goods-list" v-for="item,index in homedata.home_hot" :item='item'>
-					<div slot="promotionsTag" class="specific-discount">{{promo(item)}}</div>
+					<div slot="promotionsTag" :class="['specific-discount',{'buygive':buygive(item)}]">{{promo(item)}}</div>
 				</li>
 			</ul>
 		</div>
@@ -780,48 +780,54 @@ export default {
 	data () {
 		return {
 			homedata: '',
-			promotions: []
+			promotions: ''
 		}
 	},
 	components:{
 		goodsList
 	},
-	computed:{
-		buygive(item){
-			// return this.promo(item).tag==="买赠"? true:false
-		}
-	},
+	// computed:{
+	// 	buygive(item){
+	// 		return this.promo(item)==="买赠"? true:false
+	// 	}
+	// },
 	methods: {
 		promo(item){
-			let i = 0;
-			let it = null;
-			this.$http.get('api/promotions?with_num=true').then(
-				function(res) {
-					let t = JSON.parse(JSON.stringify(res.body.data.list));
-					// this.promotions = t;
-					let m = t.map(
-						function(item, index){
-							return item.rule.condition
-						}
-					)
-					let s = m.filter(function(item,index,arr){
-						if (arr[index].main_skus.indexOf(Number(item.sku_id))!=-1 && Object.keys(arr[index]).indexOf('money')==-1) {
-							// 最终的目的是获得index的值
-							i = index;
-						}
-						return arr[index].main_skus.indexOf(Number(item.sku_id))!=-1
-					})
-					console.log(t[i].tag);
-					it = t[i].tag
+			console.log(item);
+			let i = 0
+			let t = this.promotions;
+			let m = t.map(
+				function(item, index){
+					return item.rule.condition
 				}
 			)
-			return 111
+			let s = m.filter(function(item,index,arr){
+				if (arr[index].main_skus.indexOf(Number(item.sku_id))!=-1 && Object.keys(arr[index]).indexOf('money')==-1) {
+					// 最终的目的是获得index的值
+					i = index;
+				}
+				return arr[index].main_skus.indexOf(Number(item.sku_id))!=-1
+			})
+			// console.log(t[i].tag);
+			return t[i].tag
+		},
+		buygive(item){
+			let t = this.promo(item)
+			// console.log(t);
+			return t === "买赠"? true:false
 		},
 		fetchData () {
 			this.$http.get('api/home').then(
 				function(res) {
 					let t = JSON.parse(JSON.stringify(res.body.data));
 					this.homedata = t
+				}
+			)
+			this.$http.get('api/promotions?with_num=true').then(
+				function(res){
+					let t = JSON.parse(JSON.stringify(res.body.data.list));
+					this.promotions = t;
+					console.log(t);
 				}
 			)
 		}
