@@ -1,5 +1,6 @@
 ../assets/img/<template lang="html">
 	<div id="home-content-container">
+		<!-- 幻灯片 -->
 		<div class="home-slide">
 			<ul class="home-slide-images">
 				<li><img src="../assets/img/home-img.jpg"></li>
@@ -12,15 +13,18 @@
 				<li></li>
 			</ul>
 		</div>
+		<!-- 营销产品 -->
 		<div class="four-inline breath-series">
 			<ul class="four-inline-images">
 				<li v-for="item,index in homedata.home_activities">
 					<a class="breath-a" target="_blank" :href="item.link">
 						<img class="breath-img" :src="item.image" alt="">
+						<div class="wrappy"></div>
 					</a>
 				</li>
 			</ul>
 		</div>
+		<!-- 热卖商品 -->
 		<div class="hot-goods">
 			<ul class="switch-goods">
 				<li class="ori-left"></li>
@@ -30,9 +34,12 @@
 				<h5 class="header-title">热门商品</h5>
 			</div>
 			<ul class="every-hot-good">
-				<li is="goods-list" v-for="item,index in homedata.home_hot" :item='item'></li>
+				<li is="goods-list" v-for="item,index in homedata.home_hot" :item='item'>
+					<div slot="promotionsTag" class="specific-discount">{{promo(item)}}</div>
+				</li>
 			</ul>
 		</div>
+		<!-- 空气净化系列 -->
 		<div class="products purifier clear">
 			<div class="header-title">
 				<h5 class="header-title">净化器及配件</h5>
@@ -773,20 +780,48 @@ export default {
 	data () {
 		return {
 			homedata: '',
-			promotions: ''
+			promotions: []
 		}
 	},
 	components:{
 		goodsList
 	},
+	computed:{
+		buygive(item){
+			// return this.promo(item).tag==="买赠"? true:false
+		}
+	},
 	methods: {
+		promo(item){
+			let i = 0;
+			let it = null;
+			this.$http.get('api/promotions?with_num=true').then(
+				function(res) {
+					let t = JSON.parse(JSON.stringify(res.body.data.list));
+					// this.promotions = t;
+					let m = t.map(
+						function(item, index){
+							return item.rule.condition
+						}
+					)
+					let s = m.filter(function(item,index,arr){
+						if (arr[index].main_skus.indexOf(Number(item.sku_id))!=-1 && Object.keys(arr[index]).indexOf('money')==-1) {
+							// 最终的目的是获得index的值
+							i = index;
+						}
+						return arr[index].main_skus.indexOf(Number(item.sku_id))!=-1
+					})
+					console.log(t[i].tag);
+					it = t[i].tag
+				}
+			)
+			return 111
+		},
 		fetchData () {
 			this.$http.get('api/home').then(
 				function(res) {
 					let t = JSON.parse(JSON.stringify(res.body.data));
 					this.homedata = t
-					console.log(this.homedata);
-					console.log(new Date().getTime());
 				}
 			)
 		}
@@ -797,7 +832,13 @@ export default {
 }
 </script>
 
-<style scoped>#home-content-container {
+<style scoped>
+#home-content-container .every-hot-good .content-goods .buygive{
+	color: #d03b4f;
+	border: 1px solid #f3938b;
+	background-color: #ffe7e5;
+}
+#home-content-container {
   width: 1220px;
   margin: 0 auto;
 }
@@ -988,6 +1029,24 @@ export default {
 #home-content-container .four-inline .four-inline-images li .breath-a {
   display: block;
   background: white;
+  position: relative;
+}
+#home-content-container .four-inline .four-inline-images li .breath-a .wrappy {
+	width: 100%;
+	height: 200px;
+	position: absolute;
+	left: 0;
+	top: -1px;
+	opacity: .1;
+    box-sizing: border-box;
+    border-right: 1px solid #000;
+}
+#home-content-container .four-inline .four-inline-images li:nth-of-type(4) .breath-a .wrappy{
+	border: none;
+}
+#home-content-container .four-inline .four-inline-images li .breath-a .wrappy:hover {
+	transition: all .2s;
+	box-shadow: 0px 0px 20px 5px #999999 inset;
 }
 #home-content-container .four-inline .four-inline-images li .breath-a .breath-img {
   width: 305px;

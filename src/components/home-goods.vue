@@ -1,12 +1,14 @@
 <template lang="html">
 	<li class="content-goods">
-		<div class="specific-discount">{{promotions.tag}}</div>
+		<slot name="promotionsTag"></slot>
 		<a target="_blank" class="to-item">
 			<img class="goods-img" :src="item.spu.sku_info[0].ali_image" />
 		</a>
 		<a class="content-href" href="#">
 			<h3 class="content-name">{{item.spu.name}}</h3>
-			<h6 class="content-info">{{promotions.description}}</h6>
+			<slot name="promotionsDesc">
+				<h6 class="content-info">{{promotions.description}}</h6>
+			</slot>
 		</a>
 		<ul class="color-select">
 			<li class="select-active">
@@ -33,9 +35,11 @@ export default {
 		}
 	},
 	computed:{
+		buygive(){
+			return this.promotions.tag==="买赠"? true:false
+		}
 	},
 	created(){
-		console.log(this.item);
 		let _that = this
 		let i = 0;
 		this.$http.get('api/promotions?with_num=true').then(
@@ -57,7 +61,6 @@ export default {
 				this.promotions = t[i]
 			}
 		)
-		// console.log(Object.keys(this.promo[13].gift_num).indexOf("100035201")!==-1);
 	}
 }
 </script>
@@ -90,6 +93,11 @@ export default {
   color: #a06e37;
   top: 18px;
   right: 20px;
+}
+#home-content-container .every-hot-good .content-goods .buygive{
+	color: #d03b4f;
+	border: 1px solid #f3938b;
+	background-color: #ffe7e5;
 }
 #home-content-container .every-hot-good .content-goods .to-item {
   width: 206px;
