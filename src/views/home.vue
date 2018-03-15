@@ -35,7 +35,19 @@
 			</div>
 			<ul class="every-hot-good">
 				<li is="goods-list" v-for="item,index in homedata.home_hot" :item='item'>
-					<div slot="promotionsTag" :class="['specific-discount',{'buygive':buygive(item)}]">{{promo(item)}}</div>
+					<div
+					slot="promotionsTag"
+					:class="['specific-discount',{'buygive':buygive(item)}]"
+					v-if="promo(item)"
+					>
+						{{promo(item).tag}}
+					</div>
+					<h6
+					slot="promotionsDesc"
+					class="content-info"
+					v-if="promo(item)">
+						{{promo(item).description}}
+					</h6>
 				</li>
 			</ul>
 		</div>
@@ -786,14 +798,9 @@ export default {
 	components:{
 		goodsList
 	},
-	// computed:{
-	// 	buygive(item){
-	// 		return this.promo(item)==="买赠"? true:false
-	// 	}
-	// },
 	methods: {
 		promo(item){
-			console.log(item);
+			let sku_id = item.sku_id
 			let i = 0
 			let t = this.promotions;
 			let m = t.map(
@@ -802,18 +809,25 @@ export default {
 				}
 			)
 			let s = m.filter(function(item,index,arr){
-				if (arr[index].main_skus.indexOf(Number(item.sku_id))!=-1 && Object.keys(arr[index]).indexOf('money')==-1) {
+				if (arr[index].main_skus.indexOf(Number(sku_id))!=-1 && Object.keys(arr[index]).indexOf('money')==-1) {
 					// 最终的目的是获得index的值
 					i = index;
+					return item.main_skus.indexOf(item.sku_id)!=-1
+				}else{
+					return false
 				}
-				return arr[index].main_skus.indexOf(Number(item.sku_id))!=-1
 			})
-			// console.log(t[i].tag);
-			return t[i].tag
+			if (i>0) {
+				return t[i]
+				console.log(t[i]);
+			}else {
+				return 0
+			}
+
 		},
 		buygive(item){
 			let t = this.promo(item)
-			// console.log(t);
+			console.log(t);
 			return t === "买赠"? true:false
 		},
 		fetchData () {
@@ -827,7 +841,6 @@ export default {
 				function(res){
 					let t = JSON.parse(JSON.stringify(res.body.data.list));
 					this.promotions = t;
-					console.log(t);
 				}
 			)
 		}
@@ -839,11 +852,6 @@ export default {
 </script>
 
 <style scoped>
-#home-content-container .every-hot-good .content-goods .buygive{
-	color: #d03b4f;
-	border: 1px solid #f3938b;
-	background-color: #ffe7e5;
-}
 #home-content-container {
   width: 1220px;
   margin: 0 auto;
@@ -921,7 +929,7 @@ export default {
 }
 #home-content-container .every-hot-good .content-goods .content-href h6 {
   font: 12px/22px "微软雅黑";
-  color: #d0d0d0;
+  color: red;
 }
 #home-content-container .every-hot-good .content-goods .color-select {
   padding-top: 20px;
@@ -1324,6 +1332,11 @@ export default {
   color: #666;
   background-color: #fff;
   background-image: linear-gradient(180deg, #ffffff, #fafafa);
+}
+#home-content-container .every-hot-good .buygive{
+	color: #d03b4f!important;
+	border: 1px solid #f3938b!important;
+	background-color: #ffe7e5!important;
 }
 
 </style>

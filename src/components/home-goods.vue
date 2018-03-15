@@ -86,17 +86,12 @@ export default {
   display: block;
   width: auto;
 }
-#home-content-container .every-hot-good .content-goods .content-href h3,
-#home-content-container .every-hot-good .content-goods .content-href h6 {
+#home-content-container .every-hot-good .content-goods .content-href h3{
   text-align: center;
 }
 #home-content-container .every-hot-good .content-goods .content-href h3 {
   font: 16px/26px "微软雅黑";
   color: #424242;
-}
-#home-content-container .every-hot-good .content-goods .content-href h6 {
-  font: 12px/22px "微软雅黑";
-  color: red;
 }
 #home-content-container .every-hot-good .content-goods .color-select {
   padding-top: 20px;
