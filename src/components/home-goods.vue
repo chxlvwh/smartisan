@@ -6,16 +6,20 @@
 		</a>
 		<a class="content-href" href="#">
 			<h3 class="content-name">{{item.spu.name}}</h3>
-			<slot name="promotionsDesc">
-				<h6 class="content-info">{{promotions.description}}</h6>
-			</slot>
+			<slot name="promotionsDesc"></slot>
 		</a>
 		<ul class="color-select">
-			<li class="select-active">
-				<img>
+			<li class="select-active" v-for="sku,index in skus">
+				<img :src="sku.image">
 				<!--只有在选中这个颜色的时候才会渲染，是否显示是通过移入移出控制的，在未移入的时候，虽然渲染了，但是设置了display为none，所以也不会显示-->
 				<div class="cart-btn clear">
-					<button><a target="_blank">查看详情</a></button>
+					<button>
+						<router-link @click="getIds" target="_blank" :to="{
+			                name:'Item',
+			                query: { itemId: item.sku_id, ids: ids }
+			                }">查看详情
+			            </router-link>
+					</button>
 					<button>加入购物车</button>
 				</div>
 			</li>
@@ -26,13 +30,77 @@
 
 <script>
 /* eslint-disable */
+import Item from '../views/item.vue'
 export default {
 	name: "homeGoods",
 	props: ['item'],
 	data(){
 		return {
+			skus: this.item.spu.shop_info.spec_v2[0].spec_values,
 			promotions: '',
+			// 当前选中的颜色的索引
+			skuIndex: 0,
+			// 放置skuid的集合，用作获取数据
+			ids: ''
 		}
+	},
+	methods: {
+		selectSku: function(index) {
+			this.skuIndex = index
+			this.$store.commit('selectColor', index)
+		},
+		isActive: function(index) {
+			return this.skuIndex === index
+		},
+		addCarPanelHandle: function(data) {
+			let limitNum = 0
+			this.$http.get('api/skus?ids=' + this.ids + '&with_stock=true&with_spu=true').then(
+    			function(res) {
+    				limitNum = res.body.data.list[this.skuIndex].shop_info	.limit_num
+					data.limit_num = limitNum
+					console.log(res);
+					console.log(this.ids);
+    			}
+    		)
+			console.log(data);
+			this.$store.commit('addCarPanelData', {
+				data,
+				num: 1
+			})
+			// setTimeout(function () {
+			//   console.log(this)
+			//  let a = this.$store.getters.totalCount
+			//  console.log(a)
+			//  this.$root.$cart.save('num', a)
+			//  console.log(this.$root.$cart.fetch('num'))
+			// }, 1000)
+		},
+		btnShow(index) {
+			return this.skuIndex === index
+		},
+		getIds () {
+			let itemids = this.skus.map(function(i) {
+				return i.sku_id
+			}).join(',')
+			this.ids = itemids
+			console.log(itemids);
+		}
+	},
+	created () {
+		let itemids = this.item.map(function(i) {
+			return i.sku_id
+		}).join(',')
+		this.ids = itemids
+		console.log(this.skus);
+	},
+	updated () {
+		let itemids = this.skus.map(function(i) {
+			return i.sku_id
+		}).join(',')
+		this.ids = itemids
+	},
+	components: {
+		Item
 	}
 }
 </script>

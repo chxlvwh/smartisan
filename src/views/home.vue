@@ -34,7 +34,7 @@
 				<h5 class="header-title">热门商品</h5>
 			</div>
 			<ul class="every-hot-good">
-				<li is="goods-list" v-for="item,index in homedata.home_hot" :item='item'>
+				<li is="goods-list" v-for="item,index in homedata.home_hot" :item='item' :skus='item.spu.shop_info.spec_v2[0].spec_values'>
 					<div
 					slot="promotionsTag"
 					:class="['specific-discount',{'buygive':buygive(item)}]"
@@ -803,6 +803,7 @@ export default {
 			let sku_id = item.sku_id
 			let i = 0
 			let t = this.promotions;
+			// console.log(t instanceof Array);
 			let m = t.map(
 				function(item, index){
 					return item.rule.condition
@@ -827,16 +828,20 @@ export default {
 		},
 		buygive(item){
 			let t = this.promo(item)
-			console.log(t);
-			return t === "买赠"? true:false
+			// console.log(t);
+			return t.tag === "买赠"? true:false
 		},
 		fetchData () {
+			// 获取首页商品数据
 			this.$http.get('api/home').then(
 				function(res) {
+					// 对象的深拷贝
 					let t = JSON.parse(JSON.stringify(res.body.data));
 					this.homedata = t
+					console.log(t);
 				}
 			)
+			// 获取商品的促销信息数据
 			this.$http.get('api/promotions?with_num=true').then(
 				function(res){
 					let t = JSON.parse(JSON.stringify(res.body.data.list));
