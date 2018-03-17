@@ -9,18 +9,21 @@
 			<slot name="promotionsDesc"></slot>
 		</a>
 		<ul class="color-select">
-			<li class="select-active" v-for="sku,index in skus">
+			<li
+			v-for="sku,index in skus"
+			@click="selectSku(index)"
+			:class="{'select-active': isActive(index)}">
 				<img :src="sku.image">
 				<!--只有在选中这个颜色的时候才会渲染，是否显示是通过移入移出控制的，在未移入的时候，虽然渲染了，但是设置了display为none，所以也不会显示-->
 				<div class="cart-btn clear">
 					<button>
 						<router-link @click="getIds" target="_blank" :to="{
 			                name:'Item',
-			                query: { itemId: item.sku_id, ids: ids }
+			                query: { itemId: skus[index].sku_id, ids: ids }
 			                }">查看详情
 			            </router-link>
 					</button>
-					<button>加入购物车</button>
+					<button @click="addCarPanelHandle(item.sku_info[skuIndex])">加入购物车</button>
 				</div>
 			</li>
 		</ul>
@@ -33,7 +36,7 @@
 import Item from '../views/item.vue'
 export default {
 	name: "homeGoods",
-	props: ['item'],
+	props: ['item',],
 	data(){
 		return {
 			skus: this.item.spu.shop_info.spec_v2[0].spec_values,
@@ -79,25 +82,18 @@ export default {
 			return this.skuIndex === index
 		},
 		getIds () {
-			let itemids = this.skus.map(function(i) {
-				return i.sku_id
-			}).join(',')
-			this.ids = itemids
-			console.log(itemids);
+			this.ids = this.item.spu_id
+			console.log(this.ids);
 		}
 	},
 	created () {
-		let itemids = this.item.map(function(i) {
-			return i.sku_id
-		}).join(',')
-		this.ids = itemids
-		console.log(this.skus);
+		this.ids = this.item.spu_id
+		alert(this.ids)
+		console.log(this.ids);
 	},
 	updated () {
-		let itemids = this.skus.map(function(i) {
-			return i.sku_id
-		}).join(',')
-		this.ids = itemids
+		this.ids = this.item.spu_id
+		console.log(this.ids);
 	},
 	components: {
 		Item
@@ -189,7 +185,7 @@ export default {
   border-color: #b9b9b9;
   background: #b9b9b9;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn {
   padding: 0 46px;
   margin-bottom: 29px;
   position: absolute;
@@ -198,7 +194,7 @@ export default {
   transition: all .3s;
   display: none;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn button {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn button {
   width: 98px;
   padding: 8px 0;
   display: block;
@@ -209,24 +205,24 @@ export default {
   margin-right: 10px;
   position: relative;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn button a {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn button a {
   display: block;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn button:nth-of-type(1) {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn button:nth-of-type(1) {
   border: 1px solid #d5d5d5;
   color: #a9a6a9;
   background: #fff;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn button:nth-of-type(1):hover {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn button:nth-of-type(1):hover {
   background: #f1f1f1;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn button:nth-of-type(2) {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn button:nth-of-type(2) {
   border: 1px solid #5c81e3;
   color: #e6ecf4;
   background: linear-gradient(to bottom, #7699e8, #5c81e3);
   margin: 0;
 }
-#home-content-container .every-hot-good .content-goods .color-select .select-active .cart-btn button:nth-of-type(2):hover {
+#home-content-container .every-hot-good .content-goods .color-select .cart-btn button:nth-of-type(2):hover {
   background: linear-gradient(to bottom, #6d8dd4, #5374c8);
 }
 #home-content-container .every-hot-good .content-goods .content-price {
@@ -240,7 +236,7 @@ export default {
 #home-content-container .every-hot-good .content-goods:hover .content-price {
   display: none;
 }
-#home-content-container .every-hot-good .content-goods:hover .color-select .select-active .cart-btn {
+#home-content-container .every-hot-good .content-goods:hover .color-select .cart-btn {
   display: block;
 }
 #home-content-container .every-hot-good .content-goods:nth-of-type(4n) {

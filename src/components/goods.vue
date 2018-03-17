@@ -13,14 +13,13 @@
 			<!--只有在选中这个颜色的时候才会渲染，是否显示是通过移入移出控制的，在未移入的时候，虽然渲染了，但是设置了display为none，所以也不会显示-->
 			<div class="cart-btn clear" v-if="btnShow(index)">
 				<button>
-            <router-link @click="getIds" target="_blank" :to="{
-                name:'Item',
-                query: { itemId: item.sku_info[index].sku_id, ids: ids }
-                }">查看详情
-            </router-link>
-          </button>
-				<button @click="addCarPanelHandle(item.sku_info[skuIndex])">加入购物车
-          </button>
+		            <router-link @click="getIds" target="_blank" :to="{
+		                name:'Item',
+		                query: { itemId: item.sku_info[index].sku_id, ids: ids }
+		                }">查看详情
+		            </router-link>
+		          </button>
+				<button @click="addCarPanelHandle(item.sku_info[skuIndex])">加入购物车</button>
 			</div>
 		</li>
 	</ul>
