@@ -791,7 +791,9 @@ export default {
 	name: 'Home',
 	data () {
 		return {
+			// 热门商品
 			homedata: '',
+			// 各种营销方案
 			promotions: ''
 		}
 	},

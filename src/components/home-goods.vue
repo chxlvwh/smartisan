@@ -39,6 +39,7 @@ export default {
 	props: ['item'],
 	data(){
 		return {
+			// 存放所有sku的信息
 			skus: this.item.spu.shop_info.spec_v2[0].spec_values,
 			promotions: '',
 			// 当前选中的颜色的索引
@@ -75,19 +76,23 @@ export default {
 			return this.skuIndex === index
 		},
 		getIds () {
-			this.ids = this.item.spu_id
-			console.log(this.ids);
+			let ids = this.item.spu.sku_info.map(function(i){
+				return i.sku_id
+			}).join(',')
+			console.log(ids);
 		}
 	},
 	created () {
-		console.log(this.item);
-		console.log(this.skus);
-		this.ids = this.item.spu_id
-		console.log(this.ids);
+		let ids = this.item.spu.sku_info.map(function(i){
+			return i.sku_id
+		}).join(',')
+		console.log(ids);
 	},
 	updated () {
-		this.ids = this.item.spu_id
-		console.log(this.ids);
+		let ids = this.item.spu.sku_info.map(function(i){
+			return i.sku_id
+		}).join(',')
+		console.log(ids);
 	},
 	components: {
 		Item
