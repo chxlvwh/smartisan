@@ -52,10 +52,10 @@ export default {
 			let limitNum = 0
 			this.$http.get('api/skus?ids=' + this.ids + '&with_stock=true&with_spu=true').then(
     			function(res) {
-    				limitNum = res.body.data.list[this.skuIndex].shop_info	.limit_num
+    				limitNum = res.body.data.list[this.skuIndex].shop_info.limit_num
 					data.limit_num = limitNum
-					console.log(res);
-					console.log(this.ids);
+					// console.log(res);
+					// console.log(this.ids);
     			}
     		)
 			console.log(data);
@@ -79,10 +79,10 @@ export default {
 				return i.sku_id
 			}).join(',')
 			this.ids = itemids
-			console.log(itemids);
 		}
 	},
 	created () {
+		// console.log(this.item);
 		let itemids = this.item.sku_info.map(function(i) {
 			return i.sku_id
 		}).join(',')
